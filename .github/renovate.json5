@@ -14,6 +14,10 @@
       "excludePackagePrefixes": ["actions/", "github/"],
       "pinDigests": true,
     },
+    {
+      "groupName": "rolldown-related dependencies",
+      "matchDepNames": ["rolldown", "rolldown-plugin-dts", "tsdown"],
+    },
   ],
   "ignoreDeps": [
     // manually bumping
@@ -22,7 +26,8 @@
     "node",
     "typescript",
     "@rollup/plugin-dynamic-import-vars", // prefer version using tinyglobby
-    "@types/express", // express latest is still on v4, so types should also be v4
+    "@oxc-project/runtime", // align version with rolldown
+    "@oxc-project/types", // align version with rolldown
 
     // pinned
     "slash3",
