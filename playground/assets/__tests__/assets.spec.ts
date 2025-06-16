@@ -438,10 +438,7 @@ describe('svg fragments', () => {
   })
 
   test('via css url()', async () => {
-    const bg = await page.evaluate(() => {
-      return getComputedStyle(document.querySelector('.icon')).backgroundImage
-    })
-    expect(bg).toMatch(/svg#icon-clock-view"\)$/)
+    expect(await getBg('.icon')).toMatch(/svg#icon-clock-view"\)$/)
   })
 
   test('from js import', async () => {
@@ -472,8 +469,16 @@ test('?raw import', async () => {
 test('?no-inline svg import', async () => {
   expect(await page.textContent('.no-inline-svg')).toMatch(
     isBuild
-      ? /\/foo\/bar\/assets\/fragment-[-\w]{8}\.svg\?no-inline/
+      ? /\/foo\/bar\/assets\/fragment-[-\w]{8}\.svg/
       : '/foo/bar/nested/fragment.svg?no-inline',
+  )
+})
+
+test('?no-inline svg import -- multiple postfix', async () => {
+  expect(await page.textContent('.no-inline-svg-mp')).toMatch(
+    isBuild
+      ? /\/foo\/bar\/assets\/fragment-[-\w]{8}\.svg\?foo=bar/
+      : '/foo/bar/nested/fragment.svg?no-inline&foo=bar',
   )
 })
 
